@@ -130,7 +130,7 @@ const { result, error, loading } = useQuery(QUERY_SERVICE_BY_ID, variables );
 const service = computed(() => result.value?.service ?? []);
 
 const image = computed(() => {
-  return "http://127.0.0.1:3000" + service.value.image;
+  return "https://service-booking.onrender.com/" + service.value.image;
 });
 
 const category = computed(() => {
