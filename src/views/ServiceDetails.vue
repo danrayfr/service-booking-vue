@@ -8,7 +8,7 @@
     <div>
       <h2 class="text-gray-800 text-5xl mb-2"></h2>
       <span class="bg-yellow-200 text-yellow-800 text-xs px-2 inline-block rounded-full  uppercase font-semibold tracking-wide">
-       {{ service.category.name }}
+       
       </span>
       <p class="font-weight-900">Available on
       <span datetime="Sat Oct 08 2016 19:00:00 GMT-0500 (Central Daylight Time)"> {{formattedTime}} </span>.
@@ -51,12 +51,43 @@
     </div>
   </div>
   </div>
-    <button class="mt-4 text-xl w-full text-white bg-sky-600 hover:bg-sky-700 py-2 roundedw shadow-lg">Book a service</button>
+    <div v-if="!isBook">
+      <button @click="startBooking" class="mt-4 text-xl w-full text-white bg-sky-600 hover:bg-sky-700 py-2 roundedw shadow-lg">Book a service</button>
+      <button @click="addToCart({ service })" class="mb-6 mt-4 text-xl w-full text-white bg-sky-600 hover:bg-sky-700 py-2 roundedw shadow-lg">Add to Cart</button>
+    </div>
+    
+    <div v-if="isBook">
+    <div v-if="step === 1">
+      <Book :availableSlots="service.availableSlots" :nextStepFunction="nextStep" />
+    </div>
+    <div v-else-if="step === 2">
+      <Billing :nextStepFunction="nextStep" />
+    </div>
+    <div v-else-if="step === 3">
+      <Payment :nextStepFunction="nextStep" />
+    </div>
+    <div v-else-if="step === 4">
+      <Checkout :name="service.name" :price="service.price" :date="service.availableDate" :nextStepFunction="nextStep"/>
+    </div>
+    <div v-else-if="step === 5">
+      <Booking :id="service.id"/>
+    </div>
+    <div v-else>
+      <p>You will received a receipt via email.</p>
+    </div>
   </div>
+  </div>
+
 </template>
 
 <script setup>
-import { defineProps, computed } from "vue";
+import Billing from "@/components/Billing"
+import Payment from "@/components/PaymentMethod"
+import Book from "@/components/Book"
+import Checkout from "@/components/Checkout"
+import Booking from "@/components/Booking"
+
+import { ref, defineProps, computed, onMounted, defineEmits } from "vue";
 import { useQuery } from '@vue/apollo-composable'
 import { gql } from "graphql-tag";
 
@@ -66,6 +97,12 @@ const props = defineProps({
     required: true
   }
 });
+
+const step = ref(1)
+const isBook = ref(false)
+
+const cartItems = ref([])
+const storedService = ref(JSON.parse(localStorage.getItem('service')))
 
 const QUERY_SERVICE_BY_ID = gql`
   query serviceDetails($id: ID!) {
@@ -96,6 +133,10 @@ const image = computed(() => {
   return "http://127.0.0.1:3000" + service.value.image;
 });
 
+const category = computed(() => {
+  return service.value.category.name 
+});
+
 const formattedTime = computed(() => { 
   const dateTime = new Date(service.value.availableDate);
   const options = { 
@@ -112,6 +153,52 @@ const convertTime = (timeStr) => {
   return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true, hourCycle: 'h12' });
 }
 
+const addToCart = (service) => {
+  // Get existing cart items list from local storage
+  const existingCartItems = localStorage.getItem('cartItems');
+
+  // If there are existing cart items, parse them from JSON to an array
+  let cartItemsArray = existingCartItems ? JSON.parse(existingCartItems) : [];
+
+  // Push the new item to the array
+  cartItemsArray.push(service);
+
+  // Stringify the updated array
+  const updatedCartItems = JSON.stringify(cartItemsArray);
+
+  // Set the updated stringified array back to local storage
+  localStorage.setItem('cartItems', updatedCartItems);
+};
+
+const getCartItems = () => {
+  const cartItems = localStorage.getItem('cartItems');
+  if (cartItems) {
+    this.cartItems = JSON.parse(cartItems);
+  }
+}
+
+// Load cart items from local storage on mount
+onMounted(() => {
+  const savedCartItems = localStorage.getItem('cartItems');
+  if (savedCartItems) {
+    cartItems.value = JSON.parse(savedCartItems);
+  }
+});
+
+// Computed property to get cart count
+const cartCount = computed(() => {
+  return cartItems.value.length;
+});
+
+
+const nextStep = () => {
+  if (step.value < 5 ) {
+    step.value++;
+  }
+}
+
+const startBooking = () => { 
+  isBook.value = true;
+}
 
 </script>
-

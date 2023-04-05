@@ -31,6 +31,12 @@
             </a>
         </div>
         <button v-if="isAuthenticated" @click="logout" class="p-3 hover:bg-gray-100 transition ease duration-300 rounded-lg text-center focus:bg-gray-100 lg:inline-block block"> Logout</button>
+
+        <span class="h-5 w-px bg-gray-200 mx-3"></span>
+
+         <span v-if="isAuthenticated" class="p-3 hover:bg-gray-100 transition ease duration-300 rounded-lg text-center focus:bg-gray-100 lg:inline-block block">
+            {{ cartCount }} items in the cart
+        </span>
     </div>
     </nav>
 </template>
@@ -38,7 +44,7 @@
 <script setup>
 import { useRouter } from 'vue-router';
 import NavbarLink from "./NavbarLink";
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 
 const isLogin = ref(false);
 
@@ -57,5 +63,14 @@ const logout = () => {
         route.push({ name: 'login' })
     }
 }
+
+const cartItems = computed(() => {
+  const items = localStorage.getItem('cartItems');
+  return items ? JSON.parse(items) : [];
+});
+
+const cartCount = computed(() => {
+  return cartItems.value.length;
+});
 
 </script>

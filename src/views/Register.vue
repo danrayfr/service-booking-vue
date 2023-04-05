@@ -25,7 +25,7 @@
         <input type="password" v-model="password" placeholder="Enter your password">
       </div>      
       <div>
-        <button class="login" type="submit">Login</button>
+        <button class="login" type="submit" :disabled="hasRegister">Login</button>
       </div>
     </form>
   </div>
