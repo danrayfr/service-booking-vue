@@ -5,7 +5,7 @@ export function getHeaders() {
    // HTTP connection to the API
    const httpLink = createHttpLink({
     // You should use an absolute URL here
-    uri: 'http://localhost:3000/graphql',
+    uri: 'https://service-booking.onrender.com/graphql',
     headers: {
       Accept: 'application/json'
     }

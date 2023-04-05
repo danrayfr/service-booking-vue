@@ -47,7 +47,7 @@ const snippet = computed(() => {
 });
 
 const image = computed(() => {
-  return "http://127.0.0.1:3000/" + props.service.image;
+  return "https://service-booking.onrender.com/" + props.service.image;
 });
 
 const formattedTime = computed(() => { 
