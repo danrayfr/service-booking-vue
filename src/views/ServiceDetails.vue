@@ -51,7 +51,7 @@
     </div>
   </div>
   </div>
-    <button class="mt-4 text-xl w-full text-white bg-sky-600 hover:bg-sky-700 py-2 rounded shadow-lg">Book a service</button>
+    <button class="mt-4 text-xl w-full text-white bg-sky-600 hover:bg-sky-700 py-2 roundedw shadow-lg">Book a service</button>
   </div>
 </template>
 
