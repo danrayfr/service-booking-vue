@@ -38,8 +38,9 @@ import { ref, computed } from 'vue';
         user {
           id
           firstName
+          lastName
           email
-          role
+          mobile
         }
         token
         errors
@@ -71,6 +72,7 @@ import { ref, computed } from 'vue';
       console.log(user.value, token.value)
 
       localStorage.setItem('token', JSON.stringify(token.value));
+      localStorage.setItem('user', JSON.stringify(user.value));
 
       router.push({ name: 'home' })
 

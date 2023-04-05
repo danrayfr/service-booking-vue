@@ -24,7 +24,7 @@ nav a.router-link-exact-active {
 
 /* Button */
 input[type="name"], input[type=email], input[type=password] {
-  width: 30%;
+  width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
