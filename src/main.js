@@ -1,6 +1,19 @@
-import { createApp } from 'vue'
+import { createApp, h } from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import './assets/main.css'
 
-createApp(App).use(store).use(router).mount('#app')
+import { provideApolloClient } from '@vue/apollo-composable'
+import { getHeaders } from '../apolloClient';
+let { apolloClient } = getHeaders();
+
+const app = createApp({
+  setup () {
+    provideApolloClient(apolloClient);
+  },
+
+  render: () => h(App),
+})
+
+app.use(router).use(store).mount('#app')
