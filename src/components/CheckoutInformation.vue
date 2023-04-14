@@ -6,16 +6,16 @@
 
      <div>
       <h2>Service</h2>
-      <ul>
-        <li><strong>Name:</strong> {{ name }} </li>
-        <li><strong>Price:</strong> {{ price }}</li>
-        <li><strong>Booked date:</strong> {{ date }}</li>
-        <li><strong>Booked time:</strong> {{ bookedTime }}</li>
-        <li><strong>Booked Slot(s):</strong> {{ bookedSlot }}</li>
-        <li><strong>Payment Method</strong> {{ paymentMethod }}</li>
+      <ul v-for="cartItem in cartItems" :key="cartItem.id">
+        <li class="uppercase"><strong>Name:</strong> {{ cartItem.service.name }} </li>
+        <li><strong>Price:</strong> {{ cartItem.service.price }}</li>
+        <li><strong>Booked date:</strong> {{ cartItem.service.availableDate }}</li>
+        <li><strong>Booked time:</strong> {{ cartItem.bookedTime }}</li>
+        <li><strong>Booked Slot(s):</strong> {{ cartItem.slot }}</li>
       </ul>
     </div>
-
+    <h2>Payment Method</h2>
+    <li><strong>Payment Method</strong> {{ paymentMethod }}</li>
     <div>
       <h2>User Information:</h2>
       <ul>
@@ -45,16 +45,8 @@
 import { onBeforeMount, computed, defineProps } from "vue"
 
 const props = defineProps({
-  name: {
-    type: String,
-    required: true
-  },
-  price: {
-    type: Number,
-    required: true
-  },
-  date: {
-    type: String,
+  cartItems: {
+    type: Object,
     required: true
   },
   nextStepFunction: {

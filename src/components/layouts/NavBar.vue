@@ -10,6 +10,9 @@
         <span class="p-3 hover:bg-gray-100 transition ease duration-300 rounded-lg text-center focus:bg-gray-100 lg:inline-block block">
             <NavbarLink to="/" label="Service" />
         </span>
+        <span v-if="isAuthenticated" class="p-3 hover:bg-gray-100 transition ease duration-300 rounded-lg text-center focus:bg-gray-100 lg:inline-block block">
+            <NavbarLink to="/cart" label="Cart" />
+        </span>
         </div>
         <div v-if="!isAuthenticated" class="items-center block w-full mt-2 text-center lg:flex lg:flex-row lg:flex-1 lg:mt-0 lg:text-left lg:justify-end">
         <span class="p-3 hover:bg-gray-100 transition ease duration-300 rounded-lg text-center focus:bg-gray-100 lg:inline-block block">

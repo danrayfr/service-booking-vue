@@ -6,6 +6,7 @@ export function getHeaders() {
    const httpLink = createHttpLink({
     // You should use an absolute URL here
     uri: 'https://service-booking.onrender.com/graphql',
+    // uri: 'http://127.0.0.1:3000/graphql',
     headers: {
       Accept: 'application/json'
     }

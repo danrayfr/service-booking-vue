@@ -51,9 +51,15 @@
     </div>
   </div>
   </div>
-    <div v-if="!isBook">
-      <button @click="startBooking" class="mt-4 text-xl w-full text-white bg-sky-600 hover:bg-sky-700 py-2 roundedw shadow-lg">Book a service</button>
-      <button @click="addToCart({ service })" class="mb-6 mt-4 text-xl w-full text-white bg-sky-600 hover:bg-sky-700 py-2 roundedw shadow-lg">Add to Cart</button>
+    <div v-if="isAuthenticated">
+        <div v-if="!isBook">
+        <button @click="startBooking" class="mt-4 text-xl w-full text-white bg-sky-600 hover:bg-sky-700 py-2 roundedw shadow-lg">Book a service</button>
+        <button @click="cart" class="mb-6 mt-4 text-xl w-full text-white bg-sky-600 hover:bg-sky-700 py-2 roundedw shadow-lg">Add to Cart</button>
+      </div>
+    </div>
+
+    <div v-if="isCart">
+      <AddToCart :id="service.id" :availableSlots="service.availableSlots" />
     </div>
     
     <div v-if="isBook">
@@ -86,6 +92,7 @@ import Payment from "@/components/PaymentMethod"
 import Book from "@/components/Book"
 import Checkout from "@/components/Checkout"
 import Booking from "@/components/Booking"
+import AddToCart from "@/components/AddToCart"
 
 import { ref, defineProps, computed, onMounted, defineEmits } from "vue";
 import { useQuery } from '@vue/apollo-composable'
@@ -100,6 +107,7 @@ const props = defineProps({
 
 const step = ref(1)
 const isBook = ref(false)
+const isCart = ref(false)
 
 const cartItems = ref([])
 const storedService = ref(JSON.parse(localStorage.getItem('service')))
@@ -131,6 +139,7 @@ const service = computed(() => result.value?.service ?? []);
 
 const image = computed(() => {
   return "https://service-booking.onrender.com/" + service.value.image;
+  // return "http://127.0.0.1:3000/" + service.value.image;
 });
 
 const category = computed(() => {
@@ -200,5 +209,13 @@ const nextStep = () => {
 const startBooking = () => { 
   isBook.value = true;
 }
+
+const cart = () => {
+  isCart.value = true;
+}
+
+const isAuthenticated = computed(() => {
+    return localStorage.getItem('token');
+});
 
 </script>
