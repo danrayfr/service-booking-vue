@@ -73,10 +73,15 @@ import { ref, computed } from 'vue';
 
       localStorage.setItem('token', JSON.stringify(token.value));
       localStorage.setItem('user', JSON.stringify(user.value));
-      
-      // location.reload();
 
       router.push({ name: 'home' })
+
+      // Show success notification
+      const notification = {
+        type: 'success',
+        message: 'Login successfully.'
+      };
+      localStorage.setItem('notification', JSON.stringify(notification));
 
 
       return user, token, email.value

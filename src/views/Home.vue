@@ -1,5 +1,5 @@
 <template>
-  <div v-if="notification" class="notification" :class="notification.type">
+  <div v-if="notification" class="bg-green-200 py-2 px-4 rounded mt-4 text-bold text-gray-900" :class="notification.type">
     {{ notification.message }}
   </div>
   <div class="flex items-center justify-between pb-6 border-b">
