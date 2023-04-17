@@ -73,12 +73,18 @@ const book = async() => {
     const booking = computed(() => data.createBook?.booking ?? []);
     error.value = computed(() => data.createBook?.errors ?? []);
 
-    console.log(booking.value)
 
     if (booking.value ) {
       router.push({ name: 'home' })
     }
 
+    // Show success notification
+    const notification = {
+      type: 'success',
+      message: 'Service successfully booked'
+    };
+    localStorage.setItem('notification', JSON.stringify(notification));
+    
     hasAdded.value = false
     return booking, error.value
 

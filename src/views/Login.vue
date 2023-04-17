@@ -73,8 +73,11 @@ import { ref, computed } from 'vue';
 
       localStorage.setItem('token', JSON.stringify(token.value));
       localStorage.setItem('user', JSON.stringify(user.value));
+      
+      // location.reload();
 
       router.push({ name: 'home' })
+
 
       return user, token, email.value
 

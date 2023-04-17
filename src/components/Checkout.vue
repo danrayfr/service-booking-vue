@@ -89,7 +89,7 @@ const paymentMethod = computed(() => {
   else if(method === "4")
     return "Pay at the Store"
   else
-    return "Unknown Payment Method"
+    return "Bank"
   
 });
 

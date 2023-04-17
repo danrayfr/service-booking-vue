@@ -32,9 +32,9 @@
             <div class="rounded-md">
                 <!-- Checkout Information -->
                 <CheckoutInformation  v-if="step === 3" :nextStepFunction="nextStep" :cartItems="cartItems"/>
+                <CompleteBooking v-if="step === 3" :cartItems="cartItems" :grandTotal="grandTotal"/>
             </div>
             <div class="rounded-md">
-                <CompleteBooking v-if="step === 4" :cartItems="cartItems" :grandTotal="grandTotal"/>
             </div>
         </div>
         <div class="col-span-1 bg-white lg:block hidden">
@@ -42,7 +42,7 @@
             <ul v-for="item in cartItems" :key="item.id" class="py-6 border-b space-y-6 px-8">
                 <li class="grid grid-cols-6 gap-2 border-b-1">
                     <div class="col-span-1 self-center">
-                        <img :src="getImageUrl(item.service.image)" alt="Product" class="rounded w-full">
+                        <img :src=" (item.service.image)" alt="Product" class="rounded w-full">
                     </div>
                     <div class="flex flex-col col-span-3 pt-2">
                         <span class="text-gray-600 font-bold uppercase text-md font-semi-bold">{{ item.service.name }}</span>
@@ -119,7 +119,7 @@ const cartItems = computed(() => result.value?.cartItems ?? []);
 // Refactor later into composables || mixins
 
 function getImageUrl(image) {
-  return `"https://service-booking.onrender.com/"${image}`;
+  return "https://service-booking.onrender.com/" + image;
 }
 
 const grandTotal = computed(() => {

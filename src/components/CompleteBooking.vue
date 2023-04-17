@@ -91,6 +91,14 @@ const book = async() => {
     }
     // Route to home page after booking all items
     router.push({ name: 'home' });
+
+    // Show success notification
+    const notification = {
+      type: 'success',
+      message: 'Services successfully booked'
+    };
+    localStorage.setItem('notification', JSON.stringify(notification));
+  
   } catch(e) { 
     error.value = e.message || 'An unknown error occurred';
   } finally { 

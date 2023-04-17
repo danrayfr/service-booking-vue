@@ -38,7 +38,7 @@
   </div>
 
   <div>
-    <button class="submit-button px-4 py-3 rounded-full bg-sky-400 text-white focus:ring focus:outline-none w-full text-xl font-semibold transition-colors" type="submit" @click="next">Next</button>
+    <!-- button class="submit-button px-4 py-3 rounded-full bg-sky-400 text-white focus:ring focus:outline-none w-full text-xl font-semibold transition-colors" type="submit" @click="next">Next</!-->
   </div>
 </template>
 <script setup>
@@ -81,9 +81,8 @@ const paymentMethod = computed(() => {
   else if(method === "4")
     return "Pay at the Store"
   else
-    return "Unknown Payment Method"
-  
-});
+    return "Bank"
+}); 
 
 onBeforeMount(() => {
   // Loop through all items in localStorage

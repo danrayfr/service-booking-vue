@@ -5,7 +5,7 @@ module.exports = {
       name: 'static_app',
       // URL to the GraphQL API
       url: 'https://service-booking.onrender.com/graphql',
-      //url: 'http://127.0.0.1:3000/graphql'
+      // url: 'http://127.0.0.1:3000/graphql'
     },
     // Files processed by the extension
     includes: [

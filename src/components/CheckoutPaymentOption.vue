@@ -16,7 +16,7 @@
           </select>
       </fieldset>
       <div>
-        <button class="submit-button px-4 py-3 rounded-full bg-sky-400 text-white focus:ring focus:outline-none w-full text-xl font-semibold transition-colors" type="submit" @click="next">Next</button>
+        <button class="submit-button px-4 py-3 rounded-full bg-sky-400 text-white focus:ring focus:outline-none w-full text-xl font-semibold transition-colors" type="submit" @click="next">Proceed to Checkout</button>
     </div>
     </section>
   </div>
